@@ -22,7 +22,6 @@ int main()
     cout << "Created vector with 1 <= x <= 20, for x in Z." << endl;
 
     auto beg = tab.begin(), end = tab.end();
-    auto b2 = beg;
 
     cout << "Adding each element to it's successor:\n";
     while ( (beg+1) != end){
@@ -32,9 +31,14 @@ int main()
 
     cout << "\nadding first and last, closing loop:\n";
     
-    while ( b2 != end){
-        cout << *b2 + *end<< "   ";
-        ++b2;
+    // reset beginning
+    beg = tab.begin();
+    // set end to refer to the last element
+    end -= 1;
+
+    while ( beg < end){
+        cout << *beg + *end<< "   ";
+        ++beg;
         --end;
     }
 
