@@ -7,6 +7,7 @@
  */
 
 #include <iostream>
+#include <iterator>
 
 using namespace std;
 
@@ -24,6 +25,26 @@ int main()
     for (const auto &row : ia){             // what's the type here?
         for (const auto &col : row){        // see above questions
             cout << col << "  ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+
+    cout << "Printing with subscripts:\n";
+    for (int i=0; i<3; ++i){
+        for (int j=0; j<4; ++j){
+            cout << ia[i][j] << "  ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+    cout << "Printing with pointers:\n";
+
+    for (auto  ou = begin(ia); ou != ia+3; ++ou){
+        for (auto in = begin(*ou); in != end(*ou); ++in){
+            cout << *in << "  ";
         }
         cout << endl;
     }
