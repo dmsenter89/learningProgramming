@@ -1,0 +1,16 @@
+CC = g++
+CPPFLAGS = -g -Wall -fdiagnostics-color=auto
+#LDFLAGS = -larmadillo
+RM = rm -f
+SRCS = $(wildcard *.cpp)
+PROGS = $(patsubst %.cpp,%,$(SRCS))
+
+.PHONY: all clean
+
+all: $(PROGS)
+
+%: %.cpp
+    $(CC) $(CPPFLAGS) -o $@ $<
+
+clean:
+    $(RM) $(PROGS)
