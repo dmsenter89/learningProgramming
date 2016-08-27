@@ -25,8 +25,7 @@ int main()
     std::cout << "\tHow are you? I am fine. I miss you. Today "
         << "has been a very rainy day. It's pretty lame. What"
         << " are you up to? Anything interesting?\n";
-    std::cout << "\tBtw, have you seen " << friend_name
-        << " lately?";
+    std::cout << "\tBtw, have you seen " << friend_name << " lately?";
 
     if (friend_sex == 'm'){
         std::cout << " If you see " << friend_name
@@ -34,7 +33,7 @@ int main()
     }
 
     if (friend_sex == 'f'){
-        std::cout << "If you see " << friend_name 
+        std::cout << "If you see " << friend_name
             << ", please ask her to call me.\n";
     }
 
@@ -42,12 +41,12 @@ int main()
         << age << " years old. ";
 
     if (age <= 12){
-        std::cout << "Next year you'll be " << age+1 
+        std::cout << "Next year you'll be " << age+1
            << " years old! ";
     }
 
    if (age == 17){
-       std::cout << "New year you'll be able to vote! "; 
+       std::cout << "New year you'll be able to vote! ";
    }
 
    if (age >= 70){
