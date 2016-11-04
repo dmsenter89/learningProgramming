@@ -2,3 +2,4 @@
 *.out
 __pycache__
 graphics.py
+*.jar
