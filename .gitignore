@@ -2,5 +2,16 @@
 *.out
 __pycache__
 graphics.py
-*.jar
+
+# Netbeans/Java Files#
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
 *.class
+*.war
+*ear
+*.jar
