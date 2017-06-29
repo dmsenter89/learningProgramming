@@ -39,7 +39,47 @@ struct SvgElem{
     std::map<std::string, std::string> attr;
 };
 
+/**
+ * The SvgFile  class implements an object designed to hold all the geometric
+ * information found in a particular SVG file.
+ */
+class SvgFile{
+public:
+    SvgFile() = default; // default constructor
+    SvgFile(const std::string &fname);  // constructor, takes filename
+    std::vector<SvgElem> geo_objects;   // holds the geometric objects
+private:
+    std::set<std::string> parsable = {"path"};
+    std::vector<SvgElem> parse_geo_objects(ptree tree);
+};
 
+SvgFile::SvgFile(const std::string &fname){
+    ptree pt;
+    read_xml(fname, pt);    // initialize ptree to the xml, i.e. SVG file
+    auto root_node = pt.get_child("svg");   // necessary to get main node
+    this->geo_objects = parse_geo_objects(root_node);
+}
+
+std::vector<SvgElem> SvgFile::parse_geo_objects(ptree tree){
+    std::vector<SvgElem> v;
+    for (auto &child: tree){
+        if (this->parsable.find(child.first)!=this->parsable.end()){
+            // this means we know how to parse the object
+            SvgElem thisElem;
+            thisElem.name = child.first.data();
+            std::map<std::string, std::string> attributes;
+            for (auto &atts : child.second.get_child("<xmlattr>")){
+                attributes[atts.first.data()] = atts.second.data();
+            }
+            thisElem.attr = attributes;
+            v.push_back(thisElem);
+        } else if (child.first == "g") {
+            auto tempvec = parse_geo_objects(child.second);
+            v.insert(v.end(), tempvec.begin(), tempvec.end());
+        }
+    }
+    return v;
+}
 
 /**
  * Function that iterately parses for ALL paths.
@@ -81,11 +121,13 @@ int main(int argc, char *argv[])
          * constructor for an SvgFile class, or at least in whatever function
          * to be written that calls the function path_return.
          */
-        ptree pt;
-        read_xml(argv[1], pt);
-        auto root_node = pt.get_child("svg");
-        /* End of the block above. */
-        auto all_paths = path_return(root_node);
+        // ptree pt;
+        // read_xml(argv[1], pt);
+        // auto root_node = pt.get_child("svg");
+        // /* End of the block above. */
+        // auto all_paths = path_return(root_node);
+        SvgFile myFile = SvgFile(argv[1]);
+        auto all_paths = myFile.geo_objects;
         std::cout << "Found " << all_paths.size() << " paths in total.\n";
         for (auto& elem: all_paths){
             std::cout << "Element-type: " << elem.name << "\n";
